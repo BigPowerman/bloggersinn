@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>BloggersInn</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous"></script>
+<script src="js/blogger.js"></script>
+<link rel="stylesheet" href="css/blogger.css" />
+</head>
+<body>
+	<div id="header">
+		<h1>BloggersInn</h1>
+	</div>
+	<div id="menuHolder">
+		<div id="leftMenu">
+			<button type="button" class="btn btn-default navbar-btn" id="home">Home</button>
+			<button type="button" class="btn btn-default navbar-btn"
+				id="myProfile">My Profile</button>
+			<button type="button" class="btn btn-default navbar-btn" id="myBlogs">My
+				Blogs</button>
+
+		</div>
+		<div id="rightMenu">
+			<button type="button" class="btn btn-default navbar-btn" id="signIn">Sign-in</button>
+			<button type="button" class="btn btn-default navbar-btn" id="logout">logout</button>
+		</div>
+	</div>
+	<hr class="outside" />
+	<div id="contentHolder">
+		<div class="panel panel-default advertisement">
+			<div class="panel-body">
+
+				<div class="jumbotron">
+					<h1>Write your own story to inspire the world</h1>
+					<p>write a blog and tag the world, follow the worlds best
+						bloggers and be one</p>
+					<hr class="inside" />
+					<h3>Select your interests and start blogging</h3>
+					<!-- 						<p><span>Movies</span></p>
+						<p><span>Sports</span></p>
+						<p><span>Technologies</span></p>
+						<p><span>Politics</span></p>
+						<p><span>Health</span></p>
+ -->
+					<p>
+						<a class="btn btn-primary btn-lg" href="#" role="button"
+							id="regButton">Register Now</a>
+					</p>
+				</div>
+
+			</div>
+		</div>
+		<div class="panel panel-default login ">
+			<div class="panel-body">
+				<div id="registerLink">
+					<span>New User ? <a href="#" id="regLink">Register</a></span>
+				</div>
+				<hr class="inside" />
+				<div class="alert alert-danger" role="alert" id="alertError">
+					<span class="glyphicon glyphicon-exclamation-sign"
+						aria-hidden="true"></span> <span class="sr-only">Error:</span> <span
+						id="errorReport"></span>
+				</div>
+				<div id="userEntry">
+					<table>
+						<tr>
+							<td><span>Username :</span></td>
+							<td><div class="input-group">
+									<input type="text" class="form-control" placeholder="Username"
+										aria-describedby="basic-addon1" id="userName">
+								</div></td>
+						</tr>
+						<tr>
+							<td><span>Password :</span></td>
+							<td><div class="input-group">
+									<input type="password" class="form-control"
+										placeholder="Password" aria-describedby="basic-addon1"
+										id="password">
+								</div></td>
+						</tr>
+						<tr>
+							<td><a class="btn btn-primary btn-lg" href="#" role="button"
+								id="loginButton">BLogin</a></td>
+							<td><span>forgot password ? <a href="#"
+									id="forgotPassword">click here</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default register">
+			<div class="panel-body">
+				<div id="newUser">
+					<table>
+						<tr>
+							<td><span>Name :</span></td>
+							<td><div class="input-group">
+									<input type="text" class="form-control"
+										aria-describedby="basic-addon1" id="name">
+								</div></td>
+						</tr>
+						<tr>
+							<td><span>Preferred UserId :</span></td>
+							<td><div class="input-group">
+									<input type="text" class="form-control"
+										aria-describedby="basic-addon1" id="userIds">
+								</div></td>
+						</tr>
+						<tr>
+							<td><span>Password :</span></td>
+							<td><div class="input-group">
+									<input type="password" class="form-control"
+										aria-describedby="basic-addon1" id="pwd">
+								</div></td>
+						</tr>
+						<tr>
+							<td><span>Confirm Password :</span></td>
+							<td><div class="input-group">
+									<input type="password" class="form-control"
+										aria-describedby="basic-addon1" id="cpwd">
+								</div></td>
+						</tr>
+						<tr>
+							<td><span>Email Id :</span></td>
+							<td><div class="input-group">
+									<input type="text" class="form-control"
+										aria-describedby="basic-addon1" id="emailIds">
+								</div></td>
+						</tr>
+						<tr>
+							<td><span>Favorite :</span></td>
+							<td><select id="interests">
+									<option>Select</option>
+									<option>Movies</option>
+									<option>Sports</option>
+									<option>Technologies</option>
+									<option>Politics</option>
+									<option>Health and Fitness</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td><span>Security Question</span></td>
+							<td><select id="secQuestion">
+									<option>Select</option>
+									<option>What is your Birth place</option>
+									<option>What is your Mother's name</option>
+									<option>What is your pet name</option>
+									<option>What is your favorite place</option>
+									<option>What is your favorite game</option>
+							</select>
+								<div class="input-group">
+									<input type="text" class="form-control"
+										aria-describedby="basic-addon1" id="secAnswer">
+								</div></td>
+						</tr>
+						<tr>
+							<td><a class="btn btn-primary btn-lg" href="#" role="button"
+								id="register">Register</a></td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default regResult">
+			<div class="panel-body">
+
+				<div class="result">
+					<span id="resultAdd"></span>
+				</div>
+			</div>
+		</div>
+		<div id="mainHolder">
+			<div class="panel panel-default leftContentHolder">
+				<div class="panel-body">
+					<div class="navigationHolder">
+						<div class="list-group">
+							<a href="#" class="list-group-item active" id="createBlogLink"> Create Blog </a> <a
+								href="#" class="list-group-item " id="editBlogLink"> Edit Blog </a> <a href="#"
+								class="list-group-item" id="updateFavorites"> Update Favorites </a>
+						</div>
+						<form class="navbar-form navbar-left" role="search">
+							<div class="form-group">
+								<input type="text" class="form-control"
+									placeholder="Search Blog">
+							</div>
+							<button type="button" class="btn btn-default">go</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default rightContentHolder">
+				<div class="panel-body">
+
+					<div class="">
+						<span id=""> right Content Holder</span>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default centerContentHolder">
+				<div class="panel-body">
+
+					<div class="content">
+						<div id="createBlogSection">
+							<div id="headingContainer">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Heading"
+										aria-describedby="basic-addon1" id="blogHeading" size="500">
+								</div>
+							</div>
+							<div id="toolContainer">
+								<button type="button" class="btn btn-default"
+									aria-label="Left Align">
+									<span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default"
+									aria-label="Align Center">
+									<span class="glyphicon glyphicon-align-center" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default"
+									aria-label="Align Right">
+									<span class="glyphicon glyphicon-align-right" aria-hidden="true"></span>
+								</button>	
+								<button type="button" class="btn btn-default"
+									aria-label="Align Right">
+									<span class="glyphicon glyphicon-align-right" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default"
+									aria-label="Align Justify">
+									<span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+								</button>	
+								<button type="button" class="btn btn-default"
+									aria-label="Italic">
+									<span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default"
+									aria-label="Bold">
+									<span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default"
+									aria-label="Text Size">
+									<span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
+								</button>
+															
+							</div>
+							<div id="contentTextArea">
+								<textarea cols="90" rows="30" id="blogContent"
+									placeholder="Write your blog here..."></textarea>
+							</div>
+							<div id="blogSave">
+								<a class="btn btn-primary btn-lg" href="#" role="button"
+								id="blogSubmit">Create</a>
+							</div>
+						</div>
+						<!--  created blog to view
+					-->
+						<div id="viewCreatedBlogSection">
+							<div class="panel panel-primary">
+							  <div class="panel-heading">
+							    <h2 class="panel-title" id="cBlogHeading"></h2>
+							  </div>
+							  <div class="panel-body" id="createdBlogContent">
+							    <p><i>Posted on <span id="cBlogDate"></span></i></p>
+								<div>
+									<span id="cBlogContent"></span>
+								</div>
+							  </div>
+							</div>
+							<div class="panel panel-default">
+							  <div class="panel-heading"><p>Comments </p>
+							  	<textarea cols="70" rows="3" id="comment" placeholder="Write Comment..."></textarea>
+							  	<p><a href="#" class="btn btn-primary" role="button" id="postComment">Post</a></p>
+							  </div>
+							  <div class="panel-body">
+							    <div id="commentContent">
+<!-- 							    	<p id="commentStatus">No Comments posted</p>
+									<div class="panel panel-default">
+									  <div class="panel-heading">
+									  	<p id="pUserName"></p>
+									  </div>
+									  <div class="panel-body">
+									    <i><p id="pDate"></p></i>
+									    <p id="pComment"></p>
+									  </div>
+									</div> -->							    	
+							    </div>
+							  </div>
+							</div>														
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
