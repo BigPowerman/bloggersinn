@@ -30,7 +30,7 @@ $(document)
 											};
 											$
 													.ajax({
-														url : 'http://192.168.99.101:8888/BloggersInn/blog/user/add',
+														url : 'http://localhost:8080/BloggersInn/blog/user/add',
 														type : 'post',
 														contentType : 'application/json',
 														success : function(
@@ -87,7 +87,7 @@ $(document)
 										};
 										$
 												.ajax({
-													url : 'http://192.168.99.101:8888/BloggersInn/blog/user/login',
+													url : 'http://localhost:8080/BloggersInn/blog/user/login',
 													type : 'post',
 													contentType : 'application/json',
 													success : function(response){
@@ -125,7 +125,7 @@ $(document)
 						};
 						$
 						.ajax({
-							url : 'http://192.168.99.101:8888/BloggersInn/blog/blog/add',
+							url : 'http://localhost:8080/BloggersInn/blog/blog/add',
 							type : 'post',
 							contentType : 'application/json',
 							success : function(response){
@@ -156,7 +156,7 @@ $(document)
 							blog : blog
 						};
 						$.ajax({
-							url : 'http://192.168.99.101:8888/BloggersInn/blog/comment/add',
+							url : 'http://localhost:8080/BloggersInn/blog/comment/add',
 							type : 'post',
 							contentType : 'application/json',
 							success : function(response){
