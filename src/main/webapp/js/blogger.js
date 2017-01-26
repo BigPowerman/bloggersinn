@@ -119,6 +119,9 @@ $(document)
 														$('#home').show();
 														$('#myBlogs').show();
 														$('#logout').show();
+														$('#viewCreatedBlogSection').hide();
+														$('#viewSearchedBlogSection').hide();
+														$('#listBlogSection').hide();
 													},
 													error : function(response){
 														$('#alertError').show();

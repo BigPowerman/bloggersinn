@@ -4,6 +4,15 @@
 <meta charset="ISO-8859-1">
 <title>BloggersInn</title>
 <!-- Latest compiled and minified CSS -->
+<script src="js/pace.js"></script>
+<link rel="stylesheet" href="theme/blue/pace-theme-minimal.css" rel="stylesheet" />
+<script>
+window.paceOptions = {
+    ajax: {
+        trackMethods: ['GET', 'POST', 'PUT', 'DELETE', 'REMOVE']
+    }
+};
+</script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -22,6 +31,9 @@
 	<div id="header">
 		<h1>BloggersInn</h1>
 	</div>
+		<div id="userDiv">
+		<p id="user"></p>
+	</div>
 	<div id="menuHolder">
 		<div id="leftMenu">
 			<button type="button" class="btn btn-default navbar-btn" id="home">Home</button>
@@ -31,9 +43,7 @@
 				Blogs</button>
 
 		</div>
-		<div id="userDiv">
-			<p id="user"></p>
-		</div>
+
 		<div id="rightMenu">
 			<button type="button" class="btn btn-default navbar-btn" id="signIn">Sign-in</button>
 			<button type="button" class="btn btn-default navbar-btn" id="logout">logout</button>
@@ -275,7 +285,7 @@
 															
 							</div>
 							<div id="contentTextArea">
-								<textarea cols="90" rows="30" id="blogContent"
+								<textarea cols="10" rows="20" id="blogContent"
 									placeholder="Write your blog here..."></textarea>
 							</div>
 							<div id="blogSave">
@@ -286,7 +296,7 @@
 						<!--  created blog to view
 					-->
 						<div id="viewCreatedBlogSection">
-							<div class="panel panel-primary">
+							<div class="panel panel-default">
 							  <div class="panel-heading">
 							    <h2 class="panel-title" id="cBlogHeading"></h2>
 							  </div>
