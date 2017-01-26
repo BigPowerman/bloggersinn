@@ -150,6 +150,7 @@ $(document)
 								globalBlogId = response.id;
 								$('#createBlogSection').hide();
 								$('#searchBlogContent').hide();
+								$('#listBlogSection').hide();
 								$('#viewCreatedBlogSection').show();
 								$('#cBlogHeading').html(response.heading);
 								$('#cBlogContent').html(response.content);
@@ -164,7 +165,59 @@ $(document)
 						
 						
 					});
-
+					$('#myBlogs').click(function(){
+						var userName = globalUserName;
+						var myblog = [];
+						
+						$
+						.ajax({
+							url : 'http://localhost:8080/BloggersInn/blog/user/getUserByName/' + userName,
+							type : 'get',
+							contentType : 'application/json',
+							success : function(response){
+								myblog = response.myBlogs;
+						    	$('#viewCreatedBlogSection').hide();
+								$('#createBlogSection').hide();
+								$('#listBlogSection').show();
+								console.log(myblog);
+								$.map(myblog, function(val, index) {
+									var container = document.getElementById('listBlogSection');
+									var numChild = $('#listBlogSection').children().length+1;
+									var blogListDiv = function(){
+										var panelDefault = document.createElement("div");
+										panelDefault.setAttribute('class','panel panel-default');
+										var panelHeading = document.createElement('div');
+										panelHeading.setAttribute('class','panel-heading');
+										panelDefault.appendChild(panelHeading);
+										var cheading = document.createElement('h2');
+										cheading.setAttribute('class','panel-title');
+										cheading.setAttribute('id','lBlogHeading'+numChild);
+										panelHeading.appendChild(cheading);
+										var panelBody = document.createElement('div');
+										panelBody.setAttribute('class','panel-body');
+										panelBody.setAttribute('id','listBlogContent');							
+										var cdate = document.createElement('p');
+										cdate.setAttribute('id','lBlogDate'+numChild);
+										panelBody.appendChild(cdate);
+										var ccontent = document.createElement('div');
+										ccontent.setAttribute('id','lBlogContent'+numChild);
+										panelBody.appendChild(ccontent);
+										panelDefault.appendChild(panelBody);
+										return panelDefault;
+									}
+									container.appendChild(blogListDiv());
+									$('#lBlogHeading'+numChild).html(val.heading);
+									$('#lBlogContent'+numChild).html(val.content);
+									$('#lBlogDate'+numChild).html("Posted on " +val.postedDate);
+									});
+							},
+							error : function(response){
+								alert("Error while listing blog ");
+							}
+						});
+	
+						
+					});
 					$('#postComment').click(function(){
 						var content = $('#comment').val();
 						$('#comment').val("");

@@ -144,3 +144,7 @@ table tr td {
 	color: white;
 }
 
+#listBlogSection{
+	display: none;	
+}
+
