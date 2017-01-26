@@ -2,6 +2,7 @@ package com.cisco.bloggersInn.blogging;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import com.cisco.bloggersInn.api.Blog;
@@ -40,15 +41,21 @@ public class BlogBiz implements Blog {
 		return blog;
 	}
 	
-	public BlogInfo findBlogByHeading(String key) throws BlogNotFoundException, BlogException {
+	public List<BlogInfo> findBlogByHeading(String key) throws BlogNotFoundException, BlogException {
 		dao= new JPADao();
-		BlogInfo blog = dao.findBlogByHeading(key);
+		List<BlogInfo> blog = dao.findBlogByHeading(key);
 		return blog;
 	}
 
 	public void deleteBlog(String Id) throws BlogNotFoundException, BlogException {
 		dao= new JPADao();
 
+	}
+
+	public List<BlogInfo> getAllBlog() throws BlogException {
+		dao= new JPADao();
+		List<BlogInfo> blog = dao.getAllBlog();
+		return blog;
 	}
 
 }

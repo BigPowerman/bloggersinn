@@ -1,5 +1,7 @@
 package com.cisco.bloggersInn.data;
 
+import java.util.List;
+
 import com.cisco.bloggersInn.api.domain.BlogInfo;
 import com.cisco.bloggersInn.api.domain.Chats;
 import com.cisco.bloggersInn.api.domain.Comment;
@@ -23,7 +25,8 @@ public interface DAO {
 	public BlogInfo createBlog(BlogInfo bloginfo);
 	public BlogInfo updateBlog(BlogInfo bloginfo);
 	public BlogInfo findBlogById(long id);
-	public BlogInfo findBlogByHeading(String key);
+	public List<BlogInfo> findBlogByHeading(String key);
+	public List<BlogInfo> getAllBlog();
 	public void deleteBlog(long id);
 	
 	/*

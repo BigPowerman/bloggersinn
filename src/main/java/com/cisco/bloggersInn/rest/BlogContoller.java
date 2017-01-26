@@ -1,5 +1,7 @@
 package com.cisco.bloggersInn.rest;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -34,13 +36,23 @@ public class BlogContoller {
 		BlogInfo blog = blogService.findBlogById(id);
 		return Response.ok().entity(blog).build();
 	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getAllBlogs/")
+	public Response get(){
+		BlogBiz blogService = new BlogBiz();
+		List<BlogInfo> blog = blogService.getAllBlog();
+		return Response.ok().entity(blog).build();
+	}
+
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getBlogByHeading/{heading}")
 	public Response get(@PathParam("heading") String key){
 		BlogBiz blogService = new BlogBiz();
-		BlogInfo blog = blogService.findBlogByHeading(key);
+		List<BlogInfo> blog = blogService.findBlogByHeading(key);
 		return Response.ok().entity(blog).build();
 	}
 	

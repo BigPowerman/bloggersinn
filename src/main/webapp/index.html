@@ -31,6 +31,9 @@
 				Blogs</button>
 
 		</div>
+		<div id="userDiv">
+			<p id="user"></p>
+		</div>
 		<div id="rightMenu">
 			<button type="button" class="btn btn-default navbar-btn" id="signIn">Sign-in</button>
 			<button type="button" class="btn btn-default navbar-btn" id="logout">logout</button>
@@ -46,7 +49,7 @@
 					<p>write a blog and tag the world, follow the worlds best
 						bloggers and be one</p>
 					<hr class="inside" />
-					<h3>Select your interests and start blogging</h3>
+					<h3>To start blogging</h3>
 					<!-- 						<p><span>Movies</span></p>
 						<p><span>Sports</span></p>
 						<p><span>Technologies</span></p>
@@ -78,7 +81,7 @@
 							<td><span>Username :</span></td>
 							<td><div class="input-group">
 									<input type="text" class="form-control" placeholder="Username"
-										aria-describedby="basic-addon1" id="userName">
+										aria-describedby="basic-addon1" id="userName" >
 								</div></td>
 						</tr>
 						<tr>
@@ -86,7 +89,7 @@
 							<td><div class="input-group">
 									<input type="password" class="form-control"
 										placeholder="Password" aria-describedby="basic-addon1"
-										id="password">
+										id="password" >
 								</div></td>
 						</tr>
 						<tr>
@@ -134,7 +137,7 @@
 						<tr>
 							<td><span>Email Id :</span></td>
 							<td><div class="input-group">
-									<input type="text" class="form-control"
+									<input type="email" class="form-control"
 										aria-describedby="basic-addon1" id="emailIds">
 								</div></td>
 						</tr>
@@ -188,14 +191,14 @@
 						<div class="list-group">
 							<a href="#" class="list-group-item active" id="createBlogLink"> Create Blog </a> <a
 								href="#" class="list-group-item " id="editBlogLink"> Edit Blog </a> <a href="#"
-								class="list-group-item" id="updateFavorites"> Update Favorites </a>
+								class="list-group-item" id="discover"> Discover </a>
 						</div>
 						<form class="navbar-form navbar-left" role="search">
 							<div class="form-group">
 								<input type="text" class="form-control"
-									placeholder="Search Blog">
+									placeholder="Search Blog" id="searchBlogInput">
 							</div>
-							<button type="button" class="btn btn-default">go</button>
+							<button type="button" class="btn btn-default" id="searchBlogButton">go</button>
 						</form>
 					</div>
 				</div>
@@ -284,7 +287,7 @@
 							  </div>
 							  <div class="panel-body">
 							    <div id="commentContent">
-<!-- 							    	<p id="commentStatus">No Comments posted</p>
+<!-- 							    <p id="commentStatus">No Comments posted</p>
 									<div class="panel panel-default">
 									  <div class="panel-heading">
 									  	<p id="pUserName"></p>
@@ -298,6 +301,20 @@
 							  </div>
 							</div>														
 						</div>
+
+						<div id="viewSearchedBlogSection">
+<!-- 							<div class="panel panel-primary">
+								<div class="panel-heading blogHeadingLink">
+							    	<h2 class="panel-title" id="sBlogHeading"></h2>
+							  	</div>
+								  <div class="panel-body" id="searchBlogContent">
+								    <p><i>Posted on <span id="sBlogDate"></span></i></p>
+									<div>
+										<span id="sBlogContent"></span>
+									</div>
+								  </div>
+							</div>							
+ -->						</div>
 
 					</div>
 				</div>

@@ -1,7 +1,6 @@
 package com.cisco.bloggersInn.data.impl;
 
-import java.util.Set;
-
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,7 +11,7 @@ import com.cisco.bloggersInn.api.domain.BlogInfo;
 import com.cisco.bloggersInn.api.domain.Chats;
 import com.cisco.bloggersInn.api.domain.Comment;
 import com.cisco.bloggersInn.api.domain.Likes;
-import com.cisco.bloggersInn.api.domain.Users;
+import com.cisco.bloggersInn.api.domain.Users; 
 import com.cisco.bloggersInn.data.DAO;
 
 public class JPADao implements DAO {
@@ -110,19 +109,34 @@ public class JPADao implements DAO {
 	}
 
 
-	public BlogInfo findBlogByHeading(String key) {
+	@SuppressWarnings("unchecked")
+	public List<BlogInfo> findBlogByHeading(String key) {
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
-		BlogInfo blog = (BlogInfo)em.createQuery("select blog from BlogInfo blog where blog.heading Like :key").setParameter("key", key).getSingleResult();
-		if(blog != null){
-			System.out.println("Blog is found by the heading : "+blog.getHeading());
+		List<BlogInfo> blogs = (List<BlogInfo>)em.createQuery("select blog from BlogInfo blog where blog.heading Like ?1").setParameter(1, "%"+key+"%").getResultList();
+		if(blogs != null){
+			System.out.println("Returns some blog");
 		}else{
-			System.out.println("Blog is not foudn using the id : "+key);
+			System.out.println("No Blogs found for the key : "+key);
 		}
 		em.close();
-		return blog;
+		return blogs;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<BlogInfo> getAllBlog() {
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		List<BlogInfo> blogs = (List<BlogInfo>)em.createQuery("select blog from BlogInfo blog").getResultList();
+		if(blogs != null){
+			System.out.println("Returns some blog");
+		}else{
+			System.out.println("No Blogs found ");
+		}
+		em.close();
+		return blogs;
+	}
+	
 	public void deleteBlog(long id) {
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -199,5 +213,7 @@ public class JPADao implements DAO {
 		System.out.println("Comment is created successfully ");
 		return chat.getId();
 	}
+
+
 	
 }

@@ -71,7 +71,7 @@ table tr td {
 	float: left;
 }
 
-#rightMenu {
+#rightMenu, #userDiv {
 	float: right;
 }
 
@@ -130,5 +130,17 @@ table tr td {
 
 #viewCreatedBlogSection{
 	display: none;
+}
+
+#viewSearchedBlogSection{
+	display: none;
+}
+#editBlogLink{
+	display: none;
+}
+
+#userDiv{
+	display: none;
+	color: white;
 }
 

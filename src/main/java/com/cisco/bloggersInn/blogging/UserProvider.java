@@ -44,19 +44,20 @@ public class UserProvider implements Account{
 		Users usr = null;
 		try{
 			usr = dao.findUserByUserName(user.getUserName());
-		}catch(Exception ex){
-			throw new AccountException("Authentication Failed");
-		}
-		if(usr != null ){
-			if(usr.getPassword().equals(user.getPassword())){
-				return usr;
+			if(usr != null ){
+				if(usr.getPassword().equals(user.getPassword())){
+					return usr;
+				}else{
+					throw new PasswordIncorrectException("Username or password incorrect, please try again");
+				}
+				
 			}else{
-				throw new PasswordIncorrectException("Authentication Failed, please try again");
+				throw new UserNotExistException("User doesn't exist, please register");
 			}
-			
-		}else{
-			throw new UserNotExistException("User doesn't exist, please register");
+		}catch(Exception ex){
+			throw new AccountException("User doesn't exist, please register");
 		}
+		
 	}
 
 	public Users getChats() throws ChatNotFoundException, ChatException {
