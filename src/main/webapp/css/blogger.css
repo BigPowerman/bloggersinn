@@ -160,7 +160,7 @@ table tr td {
 }
 
 #listBlogSection{
-	display: none;	
+	display: none;
 }
 
 #blogContent{
@@ -168,3 +168,6 @@ table tr td {
 	width : 100%;
 }
 
+#userProfile{
+	display: none;
+}
