@@ -4,6 +4,16 @@
 <meta charset="ISO-8859-1">
 <title>BloggersInn</title>
 <!-- Latest compiled and minified CSS -->
+<script src="js/pace.js"></script>
+<link rel="stylesheet" href="theme/blue/pace-theme-minimal.css"
+	rel="stylesheet" />
+<script>
+	window.paceOptions = {
+		ajax : {
+			trackMethods : [ 'GET', 'POST', 'PUT', 'DELETE', 'REMOVE' ]
+		}
+	};
+</script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -22,18 +32,18 @@
 	<div id="header">
 		<h1>BloggersInn</h1>
 	</div>
+	<div id="userDiv">
+		<p id="user"></p>
+	</div>
 	<div id="menuHolder">
 		<div id="leftMenu">
-			<button type="button" class="btn btn-default navbar-btn" id="home">Home</button>
 			<button type="button" class="btn btn-default navbar-btn"
 				id="myProfile">My Profile</button>
 			<button type="button" class="btn btn-default navbar-btn" id="myBlogs">My
 				Blogs</button>
 
 		</div>
-		<div id="userDiv">
-			<p id="user"></p>
-		</div>
+
 		<div id="rightMenu">
 			<button type="button" class="btn btn-default navbar-btn" id="signIn">Sign-in</button>
 			<button type="button" class="btn btn-default navbar-btn" id="logout">logout</button>
@@ -81,7 +91,7 @@
 							<td><span>Username :</span></td>
 							<td><div class="input-group">
 									<input type="text" class="form-control" placeholder="Username"
-										aria-describedby="basic-addon1" id="userName" >
+										aria-describedby="basic-addon1" id="userName">
 								</div></td>
 						</tr>
 						<tr>
@@ -89,7 +99,7 @@
 							<td><div class="input-group">
 									<input type="password" class="form-control"
 										placeholder="Password" aria-describedby="basic-addon1"
-										id="password" >
+										id="password">
 								</div></td>
 						</tr>
 						<tr>
@@ -189,10 +199,12 @@
 				<div class="panel-body">
 					<div class="navigationHolder">
 						<div class="list-group">
-							<a href="#" class="list-group-item active" id="createBlogLink"> Create Blog </a> <a
-								href="#" class="list-group-item " id="editBlogLink"> Edit Blog </a> <a href="#"
-								class="list-group-item" id="discover"> Discover </a>
-							<a href="#"	class="list-group-item" id="updateFavorites"> Update Favorites </a>
+							<a href="#" class="list-group-item active" id="discover">
+								Discover </a> <a href="#" class="list-group-item"
+								id="createBlogLink"> Create Blog </a> <a href="#"
+								class="list-group-item " id="editBlogLink"> Edit Blog </a> <a
+								href="#" class="list-group-item" id="updateFavorites">
+								Update Favorites </a>
 
 						</div>
 						<form class="navbar-form navbar-left" role="search">
@@ -200,20 +212,23 @@
 								<input type="text" class="form-control"
 									placeholder="Search Blog" id="searchBlogInput">
 							</div>
-							<button type="button" class="btn btn-default" id="searchBlogButton">go</button>
+							<button type="button" class="btn btn-default"
+								id="searchBlogButton">go</button>
 						</form>
 					</div>
 				</div>
 			</div>
 			<div class="panel panel-default rightContentHolder">
 				<div class="panel-body">
+
 				<div id="wrapper">
     			<div id="menu">
         			<p class="welcome">Welcome, <b></b></p>
         			<div style="clear:both"></div>
     			</div>
      
-    			<div id="chatbox"></div>
+    			<div id="chatbox"><p id = "msgList" ></p></div>
+    			
      
     				<form name="message" action="">
        					 <input name="usermsg" type="text" placeholder="Write Message..." id="usermsg" size="100" />
@@ -221,15 +236,14 @@
    					     <p><a href="#" class="btn btn-primary" role="button" id="sendChat">Send</a></p>
   				    </form>
 				</div>
-
 				</div>
 			</div>
 			<div class="panel panel-default centerContentHolder">
 				<div class="panel-body">
 
 					<div class="content">
-					    <div id="listBlogSection">
-					    <!--
+						<div id="listBlogSection">
+							<!--
 					        <div class="panel panel-primary">
 							    <div class="panel-heading">
 							      <h2 class="panel-title" id="lBlogHeading"></h2>
@@ -241,8 +255,8 @@
 								   </div>
 							    </div>
 							</div>	
-							-->		    
-					    </div>
+							-->
+						</div>
 						<div id="createBlogSection">
 							<div id="headingContainer">
 								<div class="input-group">
@@ -257,65 +271,75 @@
 								</button>
 								<button type="button" class="btn btn-default"
 									aria-label="Align Center">
-									<span class="glyphicon glyphicon-align-center" aria-hidden="true"></span>
+									<span class="glyphicon glyphicon-align-center"
+										aria-hidden="true"></span>
 								</button>
 								<button type="button" class="btn btn-default"
 									aria-label="Align Right">
-									<span class="glyphicon glyphicon-align-right" aria-hidden="true"></span>
-								</button>	
+									<span class="glyphicon glyphicon-align-right"
+										aria-hidden="true"></span>
+								</button>
 								<button type="button" class="btn btn-default"
 									aria-label="Align Right">
-									<span class="glyphicon glyphicon-align-right" aria-hidden="true"></span>
+									<span class="glyphicon glyphicon-align-right"
+										aria-hidden="true"></span>
 								</button>
 								<button type="button" class="btn btn-default"
 									aria-label="Align Justify">
-									<span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-								</button>	
+									<span class="glyphicon glyphicon-align-justify"
+										aria-hidden="true"></span>
+								</button>
 								<button type="button" class="btn btn-default"
 									aria-label="Italic">
 									<span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
 								</button>
-								<button type="button" class="btn btn-default"
-									aria-label="Bold">
+								<button type="button" class="btn btn-default" aria-label="Bold">
 									<span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
 								</button>
 								<button type="button" class="btn btn-default"
 									aria-label="Text Size">
 									<span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
 								</button>
-															
+
 							</div>
 							<div id="contentTextArea">
-								<textarea cols="90" rows="30" id="blogContent"
+								<textarea cols="10" rows="20" id="blogContent"
 									placeholder="Write your blog here..."></textarea>
 							</div>
 							<div id="blogSave">
 								<a class="btn btn-primary btn-lg" href="#" role="button"
-								id="blogSubmit">Create</a>
+									id="blogSubmit">Create</a>
 							</div>
 						</div>
 						<!--  created blog to view
 					-->
 						<div id="viewCreatedBlogSection">
-							<div class="panel panel-primary">
-							  <div class="panel-heading">
-							    <h2 class="panel-title" id="cBlogHeading"></h2>
-							  </div>
-							  <div class="panel-body" id="createdBlogContent">
-							    <p><i>Posted on <span id="cBlogDate"></span></i></p>
-								<div>
-									<span id="cBlogContent"></span>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h2 class="panel-title" id="cBlogHeading"></h2>
 								</div>
-							  </div>
+								<div class="panel-body" id="createdBlogContent">
+									<p>
+										<i>Posted on <span id="cBlogDate"></span></i>
+									</p>
+									<div>
+										<span id="cBlogContent"></span>
+									</div>
+								</div>
 							</div>
 							<div class="panel panel-default">
-							  <div class="panel-heading"><p>Comments </p>
-							  	<textarea cols="70" rows="3" id="comment" placeholder="Write Comment..."></textarea>
-							  	<p><a href="#" class="btn btn-primary" role="button" id="postComment">Post</a></p>
-							  </div>
-							  <div class="panel-body">
-							    <div id="commentContent">
-<!-- 							    <p id="commentStatus">No Comments posted</p>
+								<div class="panel-heading">
+									<p>Comments</p>
+									<textarea cols="70" rows="3" id="comment"
+										placeholder="Write Comment..."></textarea>
+									<p>
+										<a href="#" class="btn btn-primary" role="button"
+											id="postComment">Post</a>
+									</p>
+								</div>
+								<div class="panel-body">
+									<div id="commentContent">
+										<!-- 							    <p id="commentStatus">No Comments posted</p>
 									<div class="panel panel-default">
 									  <div class="panel-heading">
 									  	<p id="pUserName"></p>
@@ -324,14 +348,14 @@
 									    <i><p id="pDate"></p></i>
 									    <p id="pComment"></p>
 									  </div>
-									</div> -->							    	
-							    </div>
-							  </div>
-							</div>														
+									</div> -->
+									</div>
+								</div>
+							</div>
 						</div>
 
 						<div id="viewSearchedBlogSection">
-<!-- 							<div class="panel panel-primary">
+							<!-- 							<div class="panel panel-primary">
 								<div class="panel-heading blogHeadingLink">
 							    	<h2 class="panel-title" id="sBlogHeading"></h2>
 							  	</div>
@@ -342,7 +366,90 @@
 									</div>
 								  </div>
 							</div>							
- -->						</div>
+ -->
+						</div>
+
+						<div id="userProfile">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h2 class="panel-title">My Profile</h2>
+								</div>
+								<div class="panel-body">
+									<div ><p id="updateUserResult"></p></div>
+									<div>
+										<table>
+											<tr>
+												<td><span>Name :</span></td>
+												<td><div class="input-group">
+														<input type="text" class="form-control"
+															aria-describedby="basic-addon1" id="uName">
+													</div></td>
+											</tr>
+											<tr>
+												<td><span>Username :</span></td>
+												<td><div class="input-group">
+														<input type="text" class="form-control"
+															aria-describedby="basic-addon1" id="uUserName" disabled="disabled">
+													</div></td>
+											</tr>
+											<tr>
+												<td><span>Password :</span></td>
+												<td><div class="input-group">
+														<input type="password" class="form-control"
+															aria-describedby="basic-addon1" id="uPwd">
+													</div></td>
+											</tr>
+											<tr>
+												<td><span>Confirm Password :</span></td>
+												<td><div class="input-group">
+														<input type="password" class="form-control"
+															aria-describedby="basic-addon1" id="uCPwd">
+													</div></td>
+											</tr>
+											<tr>
+												<td><span>Email Id :</span></td>
+												<td><div class="input-group">
+														<input type="email" class="form-control"
+															aria-describedby="basic-addon1" id="uEmailIds">
+													</div></td>
+											</tr>
+											<tr>
+												<td><span>Favorite :</span></td>
+												<td><select id="uInterests">
+														<option>Select</option>
+														<option>Movies</option>
+														<option>Sports</option>
+														<option>Technologies</option>
+														<option>Politics</option>
+														<option>Health and Fitness</option>
+												</select></td>
+											</tr>
+											<tr>
+												<td><span>Security Question</span></td>
+												<td><select id="uSecQuestion">
+														<option>Select</option>
+														<option>What is your Birth place</option>
+														<option>What is your Mother's name</option>
+														<option>What is your pet name</option>
+														<option>What is your favorite place</option>
+														<option>What is your favorite game</option>
+												</select>
+													<div class="input-group">
+														<input type="text" class="form-control"
+															aria-describedby="basic-addon1" id="uSecAnswer">
+													</div></td>
+											</tr>
+											<tr>
+												<td><a class="btn btn-primary btn-lg" href="#"
+													role="button" id="update">Update</a></td>
+												<td></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+
+						</div>
 
 					</div>
 				</div>

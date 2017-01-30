@@ -26,7 +26,7 @@ public class UserProvider implements Account{
 		Users user = dao.findUserByUserName(userName);
 		return user;
 	}
-
+	
 	public String createAccount(Users users) throws UserIdExistException, AccountException {
 		dao= new JPADao();
 		String userId = dao.createUser(users);
@@ -58,6 +58,23 @@ public class UserProvider implements Account{
 			throw new AccountException("User doesn't exist, please register");
 		}
 		
+	}
+
+	public Users getChats() throws ChatNotFoundException, ChatException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Users setChats(Set<Chats> chat) throws ChatNotFoundException, ChatException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean updateAccount(Users user) throws AccountException {
+		dao = new JPADao();
+		boolean status;
+		status = dao.updateUser(user);
+		return status;
 	}
 
 }

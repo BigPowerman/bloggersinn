@@ -3,6 +3,7 @@ $(document)
 				function() {
 					var globalUserName;
 					var globalBlogId;
+					var globalUserId;
 					var registration = function() {
 						$('#register')
 				 				.click(
@@ -134,7 +135,7 @@ $(document)
 													contentType : 'application/json',
 													success : function(response){
 														globalUserName = response.userName;
-														$('#user').html("Hi " + globalUserName);
+														$('#user').html("Hi " + globalUserName +" Welcome");
 														$('#userDiv').show();
 														$('.login').hide();
 														$('.advertisement').hide();
@@ -144,16 +145,19 @@ $(document)
 														$('.regResult').hide();
 														$('#signIn').hide();
 														$('#myProfile').show();
-														$('#home').show();
 														$('#myBlogs').show();
 														$('#logout').show();
 														var mychat = response.myChat;
 														console.log(mychat);
 														for(var i=0;i<mychat.length;i++){
-														$('#chatbox').html(mychat[i].senderUserName + ": " + mychat[i].message);
-														
-														}
-													
+														//$('#chatbox').html(mychat[i].senderUserName + ": " + mychat[i].message);
+															$('#msgList').append(mychat[i].senderUserName + "@ " + mychat[i].message);
+														}									
+														$('#viewCreatedBlogSection').hide();
+														$('#viewSearchedBlogSection').hide();
+														$('#listBlogSection').hide();
+														var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getAllBlogs/';
+														getAllBlog($searchUrl);
 													},
 													error : function(response){
 														$('#alertError').show();
@@ -190,6 +194,9 @@ $(document)
 								$('#cBlogHeading').html(response.heading);
 								$('#cBlogContent').html(response.content);
 								$('#cBlogDate').html(response.postedDate);
+								document.getElementById('createBlogLink').setAttribute('class','list-group-item');
+								document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+								document.getElementById('discover').setAttribute('class','list-group-item');
 							},
 							error : function(response){
 								alert("Error while creating a blog ")
@@ -200,7 +207,11 @@ $(document)
 						
 						
 					});
+					
 					$('#myBlogs').click(function(){
+						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('discover').setAttribute('class','list-group-item');
 						var userName = globalUserName;
 						var myblog = [];
 						
@@ -214,6 +225,9 @@ $(document)
 						    	$('#viewCreatedBlogSection').hide();
 								$('#createBlogSection').hide();
 								$('#listBlogSection').show();
+								$('#listBlogSection').empty();
+								$('#viewSearchedBlogSection').hide();
+								$('#userProfile').hide();
 								console.log(myblog);
 								$.map(myblog, function(val, index) {
 									var container = document.getElementById('listBlogSection');
@@ -271,7 +285,7 @@ $(document)
 								var numChild = $('#commentContent').children().length+1;
 								var commentDiv = function(){
 									var panelDefault = document.createElement("div");
-									panelDefault.setAttribute('class','panel panel-default');
+									panelDefault.setAttribute('class','panel panel-default ');
 									var panelHeading = document.createElement('div');
 									panelHeading.setAttribute('class','panel-heading');
 									panelDefault.appendChild(panelHeading);
@@ -311,28 +325,28 @@ $(document)
 						$('#createBlogSection').show();
 						$('#viewCreatedBlogSection').hide();
 						$('#viewSearchedBlogSection').hide();
+						$('#listBlogSection').hide();
 					});
 					$('#editBlogLink').click(function(){
 						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
 						document.getElementById('editBlogLink').setAttribute('class','list-group-item active');
 						document.getElementById('discover').setAttribute('class','list-group-item');
 					});
-					$('#discover').click(function(){
-						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
-						document.getElementById('editBlogLink').setAttribute('class','list-group-item');
-						document.getElementById('discover').setAttribute('class','list-group-item active');
-						var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getAllBlogs/';
-							$
+					
+					var getAllBlog = function(searchUrl){
+						$
 						.ajax({
-							url : $searchUrl,
+							url : searchUrl,
 							type : 'get',
 							contentType : 'application/json',
 							success : function(response){
 								// globalBlogId = response.id;
+								$('#userProfile').hide();
 								$('#createBlogSection').hide();
 								$('#viewCreatedBlogSection').hide();
 								$('#viewSearchedBlogSection').show();
 								$('#viewSearchedBlogSection').empty();
+								$('#listBlogSection').hide();
 								// $('#sBlogHeading').html(response.heading);
 								// $('#sBlogContent').html(response.content);
 								// $('#sBlogDate').html(response.postedDate);
@@ -347,6 +361,13 @@ $(document)
 							},
 							
 						});
+					};
+					$('#discover').click(function(){
+						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('discover').setAttribute('class','list-group-item active');
+						var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getAllBlogs/';
+						getAllBlog($searchUrl);	
 					}); 
 				 	
 					$('#logout').click(function(){
@@ -358,12 +379,13 @@ $(document)
 						$('.regResult').hide();
 						$('#signIn').show();
 						$('#myProfile').hide();
-						$('#home').hide();
 						$('#myBlogs').hide();
 						$('#logout').hide();
 						$('#user').hide();
+						$('#userProfile').hide();
 						globalUserName = undefined;
 						globalBlogId = undefined;
+						globalUserId = undefined;
 					});
 					
 					var listBlogFunction = function(blogArray){
@@ -394,39 +416,91 @@ $(document)
 					};
 
 					$('#searchBlogButton').click(function(){
-
+						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('discover').setAttribute('class','list-group-item');
 						var $searchBlog = $('#searchBlogInput').val();
 						$('#searchBlogInput').val("");
 						var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getBlogByHeading/' + $searchBlog;
-							$
-						.ajax({
-							url : $searchUrl,
-							type : 'get',
-							contentType : 'application/json',
-							success : function(response){
-								// globalBlogId = response.id;
-								$('#createBlogSection').hide();
-								$('#viewCreatedBlogSection').hide();
-								$('#viewSearchedBlogSection').show();
-								$('#viewSearchedBlogSection').empty();
-								// $('#sBlogHeading').html(response.heading);
-								// $('#sBlogContent').html(response.content);
-								// $('#sBlogDate').html(response.postedDate);
-								// $('.blogHeadingLink').click(function(){
-								// 	$('#searchBlogContent').slideToggle();
-								// });
-								var blog = response;
-								listBlogFunction(blog);
-							},
-							error : function(response){
-								alert("Error while searching blog ")
-							},
-							
-						});
+						getAllBlog($searchUrl);	
 						
 					});
 						
+					$('#myProfile').click(function(){
+						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('discover').setAttribute('class','list-group-item');
+						$('#userProfile').show();
+						$('#createBlogSection').hide();
+						$('#viewCreatedBlogSection').hide();
+						$('#viewSearchedBlogSection').hide();
+						$('#listBlogSection').hide();
+						$
+						.ajax({
+							url : 'http://localhost:8080/BloggersInn/blog/user/getUserByName/'+globalUserName,
+							type : 'get',
+							contentType : 'application/json',
+							success : function(response){
+								globalUserId = response.id;
+								$('#uName').val(response.name);
+								$('#uUserName').val(response.userName);
+								$('#uEmailIds').val(response.emailId);
+								$('#uPwd').val(response.password);
+								$('#uSecQuestion').val(response.securityQuestion);
+								$('#uSecAnswer').val(response.securityAnswer);
+								$('#uInterests').val(response.interests);
+								$('#cCPwd').val(response.password);
+								
+								
+							},
+							error : function(response){
+								alert("Error while getting user ")
+							}
+						});
+					});
 					
-					
+					$('#update').click(function(){
+						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('discover').setAttribute('class','list-group-item');
+						$('#userProfile').show();
+						$('#createBlogSection').hide();
+						$('#viewCreatedBlogSection').hide();
+						$('#viewSearchedBlogSection').hide();
+						$('#listBlogSection').hide();
+						var name = $('#uName').val();
+						var userName = $('#uUserName').val();
+						var id = globalUserId;
+						var password = $('#uPwd').val();
+						var secQuestion = $('#uSecQuestion').val();
+						var secAnswer = $('#uSecAnswer').val();
+						var interest = $('#uInterests').val();
+						var emailId = $('#uEmailIds').val();
+						var Users = {
+								id : id,
+								userName : userName,
+								name : name,
+								password : password,
+								emailId : emailId,
+								securityQuestion : secQuestion,
+								securityAnswer : secAnswer,
+								interests : interest
+							};
+						$.ajax({
+							url : 'http://localhost:8080/BloggersInn/blog/user/update/',
+							type : 'post',
+							contentType : 'application/json',
+							success : function(response){
+								$('#updateUserResult').html("User Details updated successfully");
+								$('#updateUserResult').fadeOut(1000);
+								
+							},
+							error : function(response){
+								alert("Error while updating user ")
+							},
+							data : JSON
+							.stringify(Users)
+						});
+					});
 					
 				});

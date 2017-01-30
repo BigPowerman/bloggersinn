@@ -28,6 +28,15 @@ public class UserController {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/update/")
+	public Response update(Users users) {
+		UserProvider up = new UserProvider();
+		boolean status = up.updateAccount(users);
+		return Response.ok().entity(status+"").build();
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/login/")
 	public Response login(Users users) {
