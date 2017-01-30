@@ -87,6 +87,34 @@ $(document)
 						$('.login').show();
 						$('.regResult').hide();
 					});
+					$('#sendChat').click(function() { 
+						var senderName = globalUserName;
+						
+						var receiverName = $('#receiverName').val();
+						$('#receiverName').val("");
+						
+						var text = $('#usermsg').val();
+						$('#usermsg').val("");
+						
+						var Chats = {
+								senderUserName : senderName,
+								receiverUserName: receiverName,
+								message : text
+							};	
+						
+						$.ajax({
+							type: "POST",
+							url: "http://localhost:8080/BloggersInn/blog/chat/add",
+
+							contentType : 'application/json',
+							success: function(response){
+								console.log(response);
+							},
+							data : JSON
+									.stringify(Chats)
+						});
+					});
+					
 					$('#loginButton')
 							.click(
 									function(event) {
@@ -119,6 +147,13 @@ $(document)
 														$('#home').show();
 														$('#myBlogs').show();
 														$('#logout').show();
+														var mychat = response.myChat;
+														console.log(mychat);
+														for(var i=0;i<mychat.length;i++){
+														$('#chatbox').html(mychat[i].senderUserName + ": " + mychat[i].message);
+														
+														}
+													
 													},
 													error : function(response){
 														$('#alertError').show();

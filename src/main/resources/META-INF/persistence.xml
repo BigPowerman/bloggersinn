@@ -11,8 +11,8 @@
 		<class>com.cisco.bloggersInn.api.domain.Likes</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:derby:C:\CMAD\DB\bloggersInn;create=true" />
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:derby:/Users/shivsin/Documents/Cloud_Modern_Application/DerbyDatabase1;create=true" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
 		</properties>
 	</persistence-unit>

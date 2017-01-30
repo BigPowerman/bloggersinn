@@ -21,8 +21,4 @@ public interface Account {
 	
 	public Users login(Users user) throws UserNotExistException, AccountException;
 	
-	public Users getChats() throws ChatNotFoundException, ChatException;
-	
-	public Users setChats(Set<Chats> chat) throws ChatNotFoundException, ChatException;
-	
 }

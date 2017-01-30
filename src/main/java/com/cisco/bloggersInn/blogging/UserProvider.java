@@ -60,14 +60,4 @@ public class UserProvider implements Account{
 		
 	}
 
-	public Users getChats() throws ChatNotFoundException, ChatException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Users setChats(Set<Chats> chat) throws ChatNotFoundException, ChatException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

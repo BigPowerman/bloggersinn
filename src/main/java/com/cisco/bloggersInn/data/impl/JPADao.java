@@ -210,10 +210,8 @@ public class JPADao implements DAO {
 		em.persist(chat);
 		em.getTransaction().commit();
 		em.close();
-		System.out.println("Comment is created successfully ");
+		System.out.println("Chat is created successfully ");
 		return chat.getId();
 	}
-
-
 	
 }

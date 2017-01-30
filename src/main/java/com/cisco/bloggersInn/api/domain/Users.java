@@ -3,17 +3,17 @@ package com.cisco.bloggersInn.api.domain;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.GeneratedValue;
 
 @Entity
 public class Users {
 
 	public Users(String name, String userName, String emailId, String password, String securityQuestion,
-			String securityAnswer, String interests, Set<BlogInfo> myBlogs) {
+			String securityAnswer, String interests, Set<BlogInfo> myBlogs, Set<Chats> myChat) {
 		super();
 		this.name = name;
 		this.userName =  userName;
@@ -23,6 +23,7 @@ public class Users {
 		this.securityAnswer = securityAnswer;
 		this.interests = interests;
 		this.myBlogs = myBlogs;
+		this.myChat = myChat;
 	}
 	public Users() {
 
@@ -40,10 +41,11 @@ public class Users {
 	protected String securityQuestion;
 	protected String securityAnswer;
 	protected String interests;
+    @ElementCollection
+	protected Set<Chats> myChat;
 	@OneToMany
 	protected Set<BlogInfo> myBlogs;
-	@OneToMany
-	protected Set<Chats> myChat;
+
 	
 	public String getName() {
 		return name;
