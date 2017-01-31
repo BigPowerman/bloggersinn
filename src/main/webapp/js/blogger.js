@@ -128,6 +128,7 @@ $(document)
 							},
 							error: function(response){
 								alert('Error while renderring chat');
+
 							},
 							data : JSON
 									.stringify(Chats)
@@ -185,12 +186,11 @@ $(document)
 												$('#viewCreatedBlogSection').hide();
 												var mychat = response.myChat;
 												console.log(mychat);
+												$('#msgList').empty();
 												if(mychat != null){
 													for(var i=0;i<mychat.length;i++){
-												//$('#chatbox').html(mychat[i].senderUserName + ": " + mychat[i].message);
-													$('#msgList').append("<font color=\"blue\">" +mychat[i].senderUserName + "@: </font>" + mychat[i].message + "<br>");
+														$('#msgList').append("<font color=\"blue\">" +mychat[i].senderUserName + "@: </font>" + mychat[i].message + "<br>");
 													}
-	
 												}
 												
 												clearLoginFields();
@@ -224,6 +224,9 @@ $(document)
 								content: content,
 								userName: userName
 						};
+						if(heading == "" || content == ""){
+
+						} else {
 						$
 						.ajax({
 							url : 'http://localhost:8080/BloggersInn/blog/blog/add/'+sessionString,
@@ -251,7 +254,7 @@ $(document)
 							data : JSON
 									.stringify(blog)
 						});
-						
+						}
 						
 					});
 					
@@ -309,9 +312,7 @@ $(document)
 						$('#comment').val("");
 						return panelDefault;
 					};
-					
-					
-					
+														
 					
 					$('#postComment').click(function(){
 						var content = $('#comment').val();
@@ -323,6 +324,10 @@ $(document)
 							userName : userName,
 							blog : blog
 						};
+						if(content == ""){
+							
+						} else {
+
 						$.ajax({
 							url : 'http://localhost:8080/BloggersInn/blog/comment/add/'+sessionString,
 							type : 'post',
@@ -338,6 +343,7 @@ $(document)
 							data : JSON
 									.stringify(comment)
 						});
+						}
 
 					});
 					
@@ -345,8 +351,13 @@ $(document)
 						document.getElementById('createBlogLink').setAttribute('class','list-group-item active');
 						document.getElementById('editBlogLink').setAttribute('class','list-group-item');
 						document.getElementById('discover').setAttribute('class','list-group-item');
+						document.getElementById('updateFavorites').setAttribute('class','list-group-item');
 						$('#createBlogSection').show();
 						$('#viewCreatedBlogSection').hide();
+						$('#userProfile').hide();
+						$('#listBlogHeadings').hide();
+						$('#viewClickedBlogSection').hide();
+						
 					});
 					$('#editBlogLink').click(function(){
 						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
@@ -379,6 +390,7 @@ $(document)
 						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
 						document.getElementById('editBlogLink').setAttribute('class','list-group-item');
 						document.getElementById('discover').setAttribute('class','list-group-item active');
+						document.getElementById('updateFavorites').setAttribute('class','list-group-item');
 						var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getAllBlogs/';
 						getAllBlog($searchUrl);	
 					}); 
@@ -530,6 +542,9 @@ $(document)
 							userName : userName,
 							blog : blog
 						};
+						if (contenet == ""){
+							
+						} else {
 						$.ajax({
 							url : 'http://localhost:8080/BloggersInn/blog/comment/add/'+sessionString,
 							type : 'post',
@@ -545,6 +560,7 @@ $(document)
 							data : JSON
 									.stringify(comment)
 						});
+						}
 
 					});
 					
