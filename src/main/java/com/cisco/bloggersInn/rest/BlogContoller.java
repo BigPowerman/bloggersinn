@@ -75,15 +75,18 @@ public class BlogContoller {
 		
 	}
 	
-	@PUT
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/update/")
-	public Response update(BlogInfo blogInfo,@QueryParam("sessionId") String sessionId, @QueryParam("user")String usrnme){
+	public Response update(BlogInfo blogInfo, @QueryParam("sessionId") String sessionId, @QueryParam("user")String usrnme){
 		if(UserProvider.isValidSession(sessionId, usrnme)){
 			BlogBiz blogService = new BlogBiz();
-			BlogInfo blog = blogService.updateBlog(blogInfo);
-			return Response.ok().entity(blog).build();
+			BlogInfo blog = blogService.findBlogById(blogInfo.getId());
+			blog.setHeading(blogInfo.getHeading());
+			blog.setContent(blogInfo.getContent());
+			BlogInfo updatedBlog = blogService.updateBlog(blog);
+			return Response.ok().entity(updatedBlog).build();
 		}else{
 			return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid session, please login again").build();
 		}

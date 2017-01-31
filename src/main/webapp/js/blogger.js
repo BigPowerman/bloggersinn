@@ -185,6 +185,7 @@ $(document)
 										$('#myBlogs').show();
 										$('#logout').show();
 										$('#viewCreatedBlogSection').hide();
+										$('#updateBlogLink').hide();
 										var mychat = response.myChat;
 										console.log(mychat);
 										$('#msgList').empty();
@@ -226,7 +227,7 @@ $(document)
 						userName: userName
 				};
 				if(heading == "" || content == ""){
-
+					alert('please enter heading and content');
 				} else {
 				$
 				.ajax({
@@ -244,8 +245,9 @@ $(document)
 						$('#viewClickedBlogSection').hide();
 						$('#listBlogHeadings').hide();
 						$('#commentContent').empty();
+						$('#updateBlogLink').hide();
 						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
-						document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('updateBlogLink').setAttribute('class','list-group-item');
 						document.getElementById('discover').setAttribute('class','list-group-item');
 
 					},
@@ -258,10 +260,61 @@ $(document)
 				}
 				
 			});
+
+			$('#blogEdit').click(function(){
+				var heading = $('#blogHeading').val();
+				$('#blogHeading').val("");
+				var content = $('#blogContent').val();
+				$('#blogContent').val("");
+				var userName = localStorage.getItem('user');
+				
+				var blog = {
+						id: globalBlogId,
+						heading: heading,
+						content: content,
+						userName: userName
+				};
+				if(heading == "" || content == ""){
+					alert('please enter heading and content');
+				} else {
+				$
+				.ajax({
+					url : 'http://localhost:8080/BloggersInn/blog/blog/update/'+sessionString,
+					type : 'post',
+					contentType : 'application/json',
+					success : function(response){
+						globalBlogId = response.id;
+						$('#createBlogSection').hide();
+						$('#searchBlogContent').hide();
+						$('#viewCreatedBlogSection').show();
+						$('#cBlogHeading').html(response.heading);
+						$('#cBlogContent').html(response.content);
+						$('#cBlogDate').html(response.postedDate);
+						$('#viewClickedBlogSection').hide();
+						$('#listBlogHeadings').hide();
+						$('#commentContent').empty();
+						$('#updateBlogLink').hide();
+						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('updateBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('discover').setAttribute('class','list-group-item');
+
+					},
+					error : function(response){
+						console.log("Error while creating a blog ");
+					},
+					data : JSON
+							.stringify(blog)
+				});
+				}
+				
+			});
+
+			
+			
 			
 			$('#myBlogs').click(function(){
 				document.getElementById('createBlogLink').setAttribute('class','list-group-item');
-				document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+				document.getElementById('updateBlogLink').setAttribute('class','list-group-item');
 				document.getElementById('discover').setAttribute('class','list-group-item');
 				var userName = localStorage.getItem('user');
 				var myblog = [];
@@ -280,6 +333,7 @@ $(document)
 						$('#viewClickedBlogSection').hide();
 						console.log(myblog);
 						listAllHeadings(myblog);
+						$('#updateBlogLink').hide();
 					},
 					error : function(response){
 						console.log("Error while listing blog ");
@@ -336,7 +390,7 @@ $(document)
 					success : function(response){
 						var numChild = $('#commentContent').children().length+1;
 						$('#commentContent').append(commentDiv(numChild,response)); 
-						
+						$('#updateBlogLink').hide();
 					},
 					error : function(response){
 						console.log("Error while creating a blog ");
@@ -350,20 +404,28 @@ $(document)
 			
 			$('#createBlogLink').click(function(){
 				document.getElementById('createBlogLink').setAttribute('class','list-group-item active');
-				document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+				document.getElementById('updateBlogLink').setAttribute('class','list-group-item');
 				document.getElementById('discover').setAttribute('class','list-group-item');
-				document.getElementById('updateFavorites').setAttribute('class','list-group-item');
+				
 				$('#createBlogSection').show();
 				$('#viewCreatedBlogSection').hide();
 				$('#userProfile').hide();
 				$('#listBlogHeadings').hide();
 				$('#viewClickedBlogSection').hide();
+				$('#blogSave').show();
+				$('#blogUpdate').hide();
 				
 			});
-			$('#editBlogLink').click(function(){
+			$('#updateBlogLink').click(function(){
 				document.getElementById('createBlogLink').setAttribute('class','list-group-item');
-				document.getElementById('editBlogLink').setAttribute('class','list-group-item active');
+				document.getElementById('updateBlogLink').setAttribute('class','list-group-item active');
 				document.getElementById('discover').setAttribute('class','list-group-item');
+				$('#createBlogSection').show();
+				$('#viewClickedBlogSection').hide();
+				$('#blogHeading').val($('#zBlogHeading').html());
+				$('#blogContent').val($('#zBlogContent').html());
+				$('#blogSave').hide();
+				$('#blogUpdate').show();
 			});
 			
 			var getAllBlog = function(searchUrl){
@@ -378,6 +440,7 @@ $(document)
 						$('#viewCreatedBlogSection').hide();
 						$('#listBlogHeadings').show();
 						$('#viewClickedBlogSection').hide();
+						$('#updateBlogLink').hide();
 						var blog = response;
 						listAllHeadings(blog); 
 					},
@@ -389,9 +452,10 @@ $(document)
 			};
 			$('#discover').click(function(){
 				document.getElementById('createBlogLink').setAttribute('class','list-group-item');
-				document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+				document.getElementById('updateBlogLink').setAttribute('class','list-group-item');
 				document.getElementById('discover').setAttribute('class','list-group-item active');
-				document.getElementById('updateFavorites').setAttribute('class','list-group-item');
+				
+				$('#updateBlogLink').hide();
 				var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getAllBlogs/';
 				getAllBlog($searchUrl);	
 			}); 
@@ -420,6 +484,7 @@ $(document)
 						$('#user').hide();
 						$('#userProfile').hide();
 						$(".successRegister").hide();
+						$('#updateBlogLink').hide();
 						localStorage.setItem('user',null);
 						localStorage.setItem('sessionId',null);
 					},
@@ -432,24 +497,26 @@ $(document)
 
 			$('#searchBlogButton').click(function(){
 				document.getElementById('createBlogLink').setAttribute('class','list-group-item');
-				document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+				document.getElementById('updateBlogLink').setAttribute('class','list-group-item');
 				document.getElementById('discover').setAttribute('class','list-group-item');
 				var $searchBlog = $('#searchBlogInput').val();
 				$('#searchBlogInput').val("");
 				var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getBlogByHeading/' + $searchBlog+sessionString;
 				getAllBlog($searchUrl);	
+				$('#updateBlogLink').hide();
 				
 			});
 				
 			$('#myProfile').click(function(){
 				document.getElementById('createBlogLink').setAttribute('class','list-group-item');
-				document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+				document.getElementById('updateBlogLink').setAttribute('class','list-group-item');
 				document.getElementById('discover').setAttribute('class','list-group-item');
 				$('#userProfile').show();
 				$('#listBlogHeadings').hide();
 				$('#viewClickedBlogSection').hide();
 				$('#createBlogSection').hide();
 				$('#viewCreatedBlogSection').hide();
+				$('#updateBlogLink').hide();
 				$
 				.ajax({
 					url : 'http://localhost:8080/BloggersInn/blog/user/getUserByName/'+globalUserName+sessionString,
@@ -476,11 +543,12 @@ $(document)
 			
 			$('#update').click(function(){
 				document.getElementById('createBlogLink').setAttribute('class','list-group-item');
-				document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+				document.getElementById('updateBlogLink').setAttribute('class','list-group-item');
 				document.getElementById('discover').setAttribute('class','list-group-item');
 				$('#userProfile').show();
 				$('#createBlogSection').hide();
 				$('#viewCreatedBlogSection').hide();
+				$('#updateBlogLink').hide();
 				var name = $('#uName').val();
 				var userName = $('#uUserName').val();
 				var id = globalUserId;
@@ -562,7 +630,7 @@ $(document)
 					success : function(response){
 						var numChild = $('#zcommentContent').children().length+1;
 						$('#zcommentContent').append(commentDiv(numChild,response)); 
-						
+						$('#updateBlogLink').hide();
 					},
 					error : function(response){
 						console.log("Error while creating a blog ")
@@ -584,7 +652,11 @@ $(document)
 					contentType : 'application/json',
 					success : function(response){
 						var blogArray = response;
-						
+						if(blogArray[0].userName == globalUserName){
+							$('#updateBlogLink').show();
+						}else{
+							$('#updateBlogLink').hide();
+						}
 						globalBlogId = blogArray[0].id;
 						$('#createBlogSection').hide();
 						$('#searchBlogContent').hide();
@@ -595,7 +667,7 @@ $(document)
 						$('#zBlogContent').html(blogArray[0].content);
 						$('#zBlogDate').html(blogArray[0].postedDate);
 						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
-						document.getElementById('editBlogLink').setAttribute('class','list-group-item');
+						document.getElementById('updateBlogLink').setAttribute('class','list-group-item');
 						document.getElementById('discover').setAttribute('class','list-group-item');
 						$('#zcommentContent').empty();
 						for(var j=0; j<blogArray[0].comments.length; j++){
@@ -611,37 +683,6 @@ $(document)
 				
 
 			});
-			
-			$('#updateFavorites').click(function(){
-				document.getElementById('createBlogLink').setAttribute('class','list-group-item');
-				document.getElementById('editBlogLink').setAttribute('class','list-group-item');
-				document.getElementById('discover').setAttribute('class','list-group-item');
-				document.getElementById('updateFavorites').setAttribute('class','list-group-item active');
-				var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getAllBlogs/';
-					$
-				.ajax({
-					url : $searchUrl,
-					type : 'get',
-					contentType : 'application/json',
-					success : function(response){
-						$('#userProfile').hide();
-						$('#createBlogSection').hide();
-						$('#viewCreatedBlogSection').hide();
-						$('#viewSearchedBlogSection').hide();
-						$('#listBlogHeadings').show();
-						$('#listBlogSection').hide();
-						var blog = response;
-						listAllHeadings(blog);
-						
-					},
-					error : function(response){
-						console.log("Error while searching blog ")
-					},
-					
-				});
-			});
-			
-		
 			
 			
 			if( globalUserName == "null" ){
