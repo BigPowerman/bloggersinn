@@ -58,8 +58,8 @@ public class JPADao implements DAO {
 	
 	public Users findUserByUserName(String userName){
 		EntityManager em = factory.createEntityManager();
-		System.out.println(userName);
-		Users user = (Users)em.createQuery("select usr from Users usr where usr.userName Like :user").setParameter("user", userName).getSingleResult();
+		System.out.println("inside find username " + userName);
+		Users user = (Users)em.createQuery("select usr from Users usr where usr.userName Like ?1").setParameter(1, userName).getSingleResult();
 		if(user != null){
 			System.out.println("User is found using the name :"+ user.getName());
 			Hibernate.initialize(user.getMyBlogs());

@@ -418,6 +418,7 @@ $(document)
 								$('#logout').hide();
 								$('#user').hide();
 								$('#userProfile').hide();
+								$(".successRegister").hide();
 								localStorage.setItem('user',null);
 								localStorage.setItem('sessionId',null);
 							},

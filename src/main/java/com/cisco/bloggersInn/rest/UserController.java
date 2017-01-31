@@ -1,21 +1,14 @@
 package com.cisco.bloggersInn.rest;
 
-import java.util.Date;
-
 import javax.ws.rs.Consumes;
-import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.apache.derby.tools.sysinfo;
-
 import com.cisco.bloggersInn.api.domain.Users;
 import com.cisco.bloggersInn.api.exception.AccountException;
 import com.cisco.bloggersInn.api.exception.PasswordIncorrectException;
@@ -83,10 +76,10 @@ public class UserController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/logout/{userName}")
-	public Response logout(String userName, @QueryParam("sessionId") String sessionId, @QueryParam("user")String usrnme){
+	public Response logout(@PathParam("userName") String userName, @QueryParam("sessionId") String sessionId, @QueryParam("user")String usrnme){
 		System.out.println("inside getUserByName: sessionId "+sessionId+ " username " +usrnme);
 		UserProvider up = new UserProvider();
-		if(UserProvider.isValidSession(sessionId, usrnme)){
+		if(UserProvider.isValidSession(sessionId, userName)){
 			boolean status = up.logout(userName);
 			return Response.ok().entity(status+"").build();
 		}else{
