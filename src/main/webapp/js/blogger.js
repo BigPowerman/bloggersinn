@@ -151,7 +151,7 @@ $(document)
 														console.log(mychat);
 														for(var i=0;i<mychat.length;i++){
 														//$('#chatbox').html(mychat[i].senderUserName + ": " + mychat[i].message);
-															$('#msgList').append("<font color=\"blue\">" +mychat[i].senderUserName + ": </font>" + mychat[i].message + "<br>");
+															$('#msgList').append("<font color=\"blue\">" +mychat[i].senderUserName + "@: </font>" + mychat[i].message + "<br>");
 														}
 														$('#viewCreatedBlogSection').hide();
 														$('#viewSearchedBlogSection').hide();
