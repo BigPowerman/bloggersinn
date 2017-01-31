@@ -43,7 +43,7 @@ $(document)
 												securityAnswer : secAnswer,
 												interests : interest
 											};
-											if(($('#name').val() == "") || ($('#userIds').val() == "") || ($('#pwd').val() == "") || ($('#cpwd').val() == "") || ($('#emailIds').val() == "") || ($('#interests').val() == "") || ($('#secQuestion').val() == "") || ($('#secAnswer').val() == "")  ){
+											if(($('#name').val() == "") || ($('#userIds').val() == "") || ($('#pwd').val() == "") || ($('#cpwd').val() == "") || ($('#emailIds').val() == "") || ($('#interests').val() == "select") || ($('#interests').val() == "") || ($('#secQuestion').val() == "select") || ($('#secQuestion').val() == "") || ($('#secAnswer').val() == "")  ){
 												$("#resultAdd").html("All the fields are mandatory.");
 												$(".register").show();
 												$(".regResult").show();
@@ -127,7 +127,7 @@ $(document)
 								console.log(response);
 							},
 							error: function(response){
-								alert('Error while renderring chat');
+								console.log('Error while renderring chat');
 
 							},
 							data : JSON
@@ -249,7 +249,7 @@ $(document)
 
 							},
 							error : function(response){
-								alert("Error while creating a blog ");
+								console.log("Error while creating a blog ");
 							},
 							data : JSON
 									.stringify(blog)
@@ -281,7 +281,7 @@ $(document)
 								listAllHeadings(myblog);
 							},
 							error : function(response){
-								alert("Error while listing blog ");
+								console.log("Error while listing blog ");
 							}
 						});
 	
@@ -338,7 +338,7 @@ $(document)
 								
 							},
 							error : function(response){
-								alert("Error while creating a blog ")
+								console.log("Error while creating a blog ");
 							},
 							data : JSON
 									.stringify(comment)
@@ -381,7 +381,7 @@ $(document)
 								listAllHeadings(blog); 
 							},
 							error : function(response){
-								alert("Error while searching blog ")
+								console.log("Error while searching blog ")
 							},
 							
 						});
@@ -423,7 +423,7 @@ $(document)
 								localStorage.setItem('sessionId',null);
 							},
 							error : function(response){
-								alert("Error while logout ")
+								console.log("Error while logout ");
 							},
 							
 						});
@@ -468,7 +468,7 @@ $(document)
 								
 							},
 							error : function(response){
-								alert("Error while getting user ")
+								console.log("Error while getting user ")
 							}
 						});
 					});
@@ -498,21 +498,27 @@ $(document)
 								securityAnswer : secAnswer,
 								interests : interest
 							};
-						$.ajax({
-							url : 'http://localhost:8080/BloggersInn/blog/user/update/'+sessionString,
-							type : 'post',
-							contentType : 'application/json',
-							success : function(response){
-								$('#updateUserResult').html("User Details updated successfully");
+						if(($('#name').val() == "") || ($('#userIds').val() == "") || ($('#pwd').val() == "") || ($('#cpwd').val() == "") || ($('#emailIds').val() == "") || ($('#interests').val() == "select") ||($('#interests').val() == "") || ($('#secQuestion').val() == "select") || ($('#secQuestion').val() == "")|| ($('#secAnswer').val() == "")  ){
+							$('#updateUserResult').html("All Fields are mandatory");
+						}else if(($('#pwd').val()) != ($('#cpwd').val())){
+							$('#updateUserResult').html("passwords should match");
+						}else{
+							$.ajax({
+								url : 'http://localhost:8080/BloggersInn/blog/user/update/'+sessionString,
+								type : 'post',
+								contentType : 'application/json',
+								success : function(response){
+									$('#updateUserResult').html("User Details updated successfully");
 								
-								
-							},
-							error : function(response){
-								alert("Error while updating user ")
-							},
-							data : JSON
-							.stringify(Users)
-						});
+								},
+								error : function(response){
+									console.log("Error while updating user ")
+								},
+								data : JSON
+								.stringify(Users)
+							});
+						}
+						
 					});
 					
 					var arrayBlog;
@@ -558,7 +564,7 @@ $(document)
 								
 							},
 							error : function(response){
-								alert("Error while creating a blog ")
+								console.log("Error while creating a blog ")
 							},
 							data : JSON
 									.stringify(comment)
@@ -569,7 +575,7 @@ $(document)
 					
 					$('#listBlogHeadings').on('click','a',function(){
 						var blogHeading = ($(this).text());
-						alert(blogHeading);
+						console.log(blogHeading);
 						$
 						.ajax({
 							url : 'http://localhost:8080/BloggersInn/blog/blog/getBlogByHeading/'+blogHeading+sessionString,
@@ -598,7 +604,7 @@ $(document)
 								}
 							},
 							error : function(response){
-								alert("Error while creating a blog ");
+								console.log("Error while creating a blog ");
 							}
 						});
 						
@@ -628,7 +634,7 @@ $(document)
 								
 							},
 							error : function(response){
-								alert("Error while searching blog ")
+								console.log("Error while searching blog ")
 							},
 							
 						});
