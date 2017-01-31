@@ -32,13 +32,13 @@ public class JPADao implements DAO {
 		return users.getUserName();
 	}
 
-	public boolean updateUser(Users user) {
+	public Users updateUser(Users user) {
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
 		em.merge(user);
 		em.getTransaction().commit();
 		em.close();
-		return true;
+		return user;
 	}
 
 	public Users findUser(long userId) {
@@ -215,4 +215,5 @@ public class JPADao implements DAO {
 		return chat.getId();
 	}
 	
+
 }

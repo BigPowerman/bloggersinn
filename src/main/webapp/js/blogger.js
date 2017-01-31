@@ -5,6 +5,7 @@ $(document)
 					var globalUserName;
 					var globalBlogId;
 					var globalUserId;
+					var sessionString;
 					var registration = function() {
 						var clearRegisterFields = function(){
 							$('#name').val("");
@@ -103,7 +104,7 @@ $(document)
 					});
 					
 					$('#sendChat').click(function() { 
-						var senderName = globalUserName;
+						var senderName = localStorage.getItem('user');
 						
 						var receiverName = $('#receiverName').val();
 						$('#receiverName').val("");
@@ -119,11 +120,14 @@ $(document)
 						
 						$.ajax({
 							type: "POST",
-							url: "http://localhost:8080/BloggersInn/blog/chat/add",
+							url: "http://localhost:8080/BloggersInn/blog/chat/add/"+sessionString,
 
 							contentType : 'application/json',
 							success: function(response){
 								console.log(response);
+							},
+							error: function(response){
+								alert('Error while renderring chat');
 							},
 							data : JSON
 									.stringify(Chats)
@@ -161,7 +165,12 @@ $(document)
 											contentType : 'application/json',
 											success : function(response){
 												globalUserName = response.userName;
-												$('#user').html("Hi " + globalUserName +" Welcome");
+												localStorage.setItem('user',response.userName);
+												localStorage.setItem('sessionId',response.sessionId);
+												console.log(localStorage.getItem('user'));
+												console.log(localStorage.getItem('sessionId'));
+												sessionString = '?sessionId='+ localStorage.getItem('sessionId')+'&user='+localStorage.getItem('user');
+												$('#user').html("Hi " + localStorage.getItem('user') +" Welcome");
 												$('#userDiv').show();
 												$('.login').hide();
 												$('.advertisement').hide();
@@ -176,13 +185,16 @@ $(document)
 												$('#viewCreatedBlogSection').hide();
 												var mychat = response.myChat;
 												console.log(mychat);
-												for(var i=0;i<mychat.length;i++){
+												if(mychat != null){
+													for(var i=0;i<mychat.length;i++){
 												//$('#chatbox').html(mychat[i].senderUserName + ": " + mychat[i].message);
 													$('#msgList').append("<font color=\"blue\">" +mychat[i].senderUserName + "@: </font>" + mychat[i].message + "<br>");
+													}
+	
 												}
-
+												
 												clearLoginFields();
-												var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getAllBlogs/';
+												var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getAllBlogs/'+sessionString;
 												getAllBlog($searchUrl);
 											},
 											error : function(response){
@@ -205,7 +217,7 @@ $(document)
 						$('#blogHeading').val("");
 						var content = $('#blogContent').val();
 						$('#blogContent').val("");
-						var userName = globalUserName;
+						var userName = localStorage.getItem('user');
 						
 						var blog = {
 								heading: heading,
@@ -214,7 +226,7 @@ $(document)
 						};
 						$
 						.ajax({
-							url : 'http://localhost:8080/BloggersInn/blog/blog/add',
+							url : 'http://localhost:8080/BloggersInn/blog/blog/add/'+sessionString,
 							type : 'post',
 							contentType : 'application/json',
 							success : function(response){
@@ -247,12 +259,12 @@ $(document)
 						document.getElementById('createBlogLink').setAttribute('class','list-group-item');
 						document.getElementById('editBlogLink').setAttribute('class','list-group-item');
 						document.getElementById('discover').setAttribute('class','list-group-item');
-						var userName = globalUserName;
+						var userName = localStorage.getItem('user');
 						var myblog = [];
 						
 						$
 						.ajax({
-							url : 'http://localhost:8080/BloggersInn/blog/user/getUserByName/' + userName,
+							url : 'http://localhost:8080/BloggersInn/blog/user/getUserByName/' + userName+sessionString,
 							type : 'get',
 							contentType : 'application/json',
 							success : function(response){
@@ -304,7 +316,7 @@ $(document)
 					$('#postComment').click(function(){
 						var content = $('#comment').val();
 						$('#comment').val("");
-						var userName = globalUserName;
+						var userName = localStorage.getItem('user');
 						var blog = globalBlogId;
 						var comment = {
 							content : content,
@@ -312,7 +324,7 @@ $(document)
 							blog : blog
 						};
 						$.ajax({
-							url : 'http://localhost:8080/BloggersInn/blog/comment/add',
+							url : 'http://localhost:8080/BloggersInn/blog/comment/add/'+sessionString,
 							type : 'post',
 							contentType : 'application/json',
 							success : function(response){
@@ -372,21 +384,34 @@ $(document)
 					}); 
 				 	
 					$('#logout').click(function(){
-						$('.login').show();
-						$('.advertisement').show();
-						$('.centerContentHolder').hide();
-						$('.leftContentHolder').hide();
-						$('.rightContentHolder').hide();
-						$('.regResult').hide();
-						$('#signIn').show();
-						$('#myProfile').hide();
-						$('#myBlogs').hide();
-						$('#logout').hide();
-						$('#user').hide();
-						$('#userProfile').hide();
-						globalUserName = undefined;
-						globalBlogId = undefined;
-						globalUserId = undefined;
+
+						$
+						.ajax({
+							url : 'http://localhost:8080/BloggersInn/blog/user/logout/'+globalUserName+sessionString,
+							type : 'get',
+							contentType : 'application/json',
+							success : function(response){
+								globalUserName = null;
+								globalBlogId = null;
+								globalUserId = null;
+								$('.login').show();
+								$('.advertisement').show();
+								$('.centerContentHolder').hide();
+								$('.leftContentHolder').hide();
+								$('.rightContentHolder').hide();
+								$('.regResult').hide();
+								$('#signIn').show();
+								$('#myProfile').hide();
+								$('#myBlogs').hide();
+								$('#logout').hide();
+								$('#user').hide();
+								$('#userProfile').hide();
+							},
+							error : function(response){
+								alert("Error while logout ")
+							},
+							
+						});
 					});
 
 					$('#searchBlogButton').click(function(){
@@ -395,7 +420,7 @@ $(document)
 						document.getElementById('discover').setAttribute('class','list-group-item');
 						var $searchBlog = $('#searchBlogInput').val();
 						$('#searchBlogInput').val("");
-						var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getBlogByHeading/' + $searchBlog;
+						var $searchUrl = 'http://localhost:8080/BloggersInn/blog/blog/getBlogByHeading/' + $searchBlog+sessionString;
 						getAllBlog($searchUrl);	
 						
 					});
@@ -411,7 +436,7 @@ $(document)
 						$('#viewCreatedBlogSection').hide();
 						$
 						.ajax({
-							url : 'http://localhost:8080/BloggersInn/blog/user/getUserByName/'+globalUserName,
+							url : 'http://localhost:8080/BloggersInn/blog/user/getUserByName/'+globalUserName+sessionString,
 							type : 'get',
 							contentType : 'application/json',
 							success : function(response){
@@ -459,7 +484,7 @@ $(document)
 								interests : interest
 							};
 						$.ajax({
-							url : 'http://localhost:8080/BloggersInn/blog/user/update/',
+							url : 'http://localhost:8080/BloggersInn/blog/user/update/'+sessionString,
 							type : 'post',
 							contentType : 'application/json',
 							success : function(response){
@@ -498,7 +523,7 @@ $(document)
 					$('#zpostComment').click(function(){
 						var content = $('#zcomment').val();
 						$('#zcomment').val("");
-						var userName = globalUserName;
+						var userName = localStorage.getItem('user');
 						var blog = globalBlogId;
 						var comment = {
 							content : content,
@@ -506,7 +531,7 @@ $(document)
 							blog : blog
 						};
 						$.ajax({
-							url : 'http://localhost:8080/BloggersInn/blog/comment/add',
+							url : 'http://localhost:8080/BloggersInn/blog/comment/add/'+sessionString,
 							type : 'post',
 							contentType : 'application/json',
 							success : function(response){
@@ -528,7 +553,7 @@ $(document)
 						alert(blogHeading);
 						$
 						.ajax({
-							url : 'http://localhost:8080/BloggersInn/blog/blog/getBlogByHeading/'+blogHeading,
+							url : 'http://localhost:8080/BloggersInn/blog/blog/getBlogByHeading/'+blogHeading+sessionString,
 							type : 'get',
 							contentType : 'application/json',
 							success : function(response){
