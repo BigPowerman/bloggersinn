@@ -1,11 +1,15 @@
 package com.cisco.bloggersInn.rest;
 
+import java.util.Date;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import com.cisco.bloggersInn.api.domain.Users;
@@ -21,9 +25,14 @@ public class UserController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/add/")
 	public Response add(Users users) {
-		UserProvider up = new UserProvider();
-		String userName = up.createAccount(users);
-		return Response.ok().entity(userName).build();
+		try{
+			UserProvider up = new UserProvider();
+			String userName = up.createAccount(users);
+			return Response.ok().entity(userName).build();
+		}catch(AccountException ex){
+			return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+		}
+		
 	}
 	
 	@POST
@@ -33,6 +42,7 @@ public class UserController {
 		UserProvider up = new UserProvider();
 		boolean status = up.updateAccount(users);
 		return Response.ok().entity(status+"").build();
+		
 	}
 	
 	@POST
@@ -44,7 +54,8 @@ public class UserController {
 		Users user = null;
 		try{
 			 user = up.login(users);
-			 return Response.ok().entity(user).build();
+			 Cookie cookie = new Cookie("userName", user.getUserName());
+			 return Response.ok().header("Set-Cookie", cookie+";secure; HttpOnly").expires(new Date()).entity(user).build();
 		}catch(UserNotExistException ex){
 			System.out.println(ex.getMessage());
 			return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();

@@ -38,15 +38,18 @@ body {
 	background: #FDF3E7;
 }
 
-.login, .register, .regResult {
+.login, .register {
 	width: 49%;
 	float: right;
 	height: 600px;
 	font-size: medium;
 	background: #FDF3E7;
 }
+.regResult {
+	display: none;
+}
 
-.register, .regResult {
+.register, .successRegister{
 	display: none;
 	padding: 20px;
 }
@@ -89,21 +92,24 @@ table tr td {
 	float: left;
 	width: 25%;
 	display: none;
-	height : 100%;
+	min-height : 100%;
+	height : auto;
 }
 
 .rightContentHolder {
 	float: right;
 	width: 25%;
 	display: none;
-	height : 100%;
+	min-height : 100%;
+	height : auto;
 }
 
 .centerContentHolder {
 	float: right;
 	width: 50%;
 	display: none;
-	height: 100%;
+	height: auto;
+	min-height: 100%
 }
 
 #mainHolder {
@@ -146,9 +152,6 @@ table tr td {
 	height: 100%;
 }
 
-#viewSearchedBlogSection{
-	display: none;
-}
 #editBlogLink{
 	display: none;
 }
@@ -159,16 +162,12 @@ table tr td {
 	color: white;
 }
 
-#listBlogSection{
-	display: none;
-}
-
 #blogContent{
 	height: 100%;
 	width : 100%;
 }
 
-#userProfile{
+#userProfile, #viewClickedBlogSection{
 	display: none;
 }
 
@@ -194,3 +193,30 @@ table tr td {
     width:100px;
     border:1px solid #ACD8F0; 
     }  
+
+}
+
+.content{
+	height: 100%;
+}
+
+.centerContentHolder.panel-body{
+	height: 100%;
+}
+
+.marginBlog{
+	min-height : 100%;
+	height : auto;
+	border: 1px solid blue;
+	padding: 10px;
+	margin-bottom: 20px
+}
+
+#listBlogHeading{
+	border: 1px solid;
+}
+
+#updateUserResult{
+	color: Green;
+}
+

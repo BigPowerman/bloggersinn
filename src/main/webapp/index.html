@@ -14,21 +14,22 @@
 		}
 	};
 </script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script	src="js/bootstrap.min.js" ></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"
-	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-	crossorigin="anonymous"></script>
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
 <script src="js/blogger.js"></script>
 <link rel="stylesheet" href="css/blogger.css" />
+
+ <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+ <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" />
+ 
+
 </head>
 <body>
+
 	<div id="header">
 		<h1>BloggersInn</h1>
 	</div>
@@ -60,12 +61,6 @@
 						bloggers and be one</p>
 					<hr class="inside" />
 					<h3>To start blogging</h3>
-					<!-- 						<p><span>Movies</span></p>
-						<p><span>Sports</span></p>
-						<p><span>Technologies</span></p>
-						<p><span>Politics</span></p>
-						<p><span>Health</span></p>
- -->
 					<p>
 						<a class="btn btn-primary btn-lg" href="#" role="button"
 							id="regButton">Register Now</a>
@@ -80,18 +75,22 @@
 					<span>New User ? <a href="#" id="regLink">Register</a></span>
 				</div>
 				<hr class="inside" />
-				<div class="alert alert-danger" role="alert" id="alertError">
+				<div class="alert alert-danger alert-dismissible" role="alert" id="alertError">
 					<span class="glyphicon glyphicon-exclamation-sign"
 						aria-hidden="true"></span> <span class="sr-only">Error:</span> <span
 						id="errorReport"></span>
+				</div>
+				<div class="alert alert-success alert-dismissible successRegister " role="alert">
+  					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  					<p id="regAdd"></p>
 				</div>
 				<div id="userEntry">
 					<table>
 						<tr>
 							<td><span>Username :</span></td>
 							<td><div class="input-group">
-									<input type="text" class="form-control" placeholder="Username"
-										aria-describedby="basic-addon1" id="userName">
+									<input type="text" class="form-control required" placeholder="Username"
+										aria-describedby="basic-addon1" id="userName" name="username" minlength ="2">
 								</div></td>
 						</tr>
 						<tr>
@@ -114,6 +113,9 @@
 		</div>
 		<div class="panel panel-default register">
 			<div class="panel-body">
+				<div class="alert alert-danger regResult" role="alert">
+				  <p id="resultAdd"></p>
+				</div>
 				<div id="newUser">
 					<table>
 						<tr>
@@ -186,14 +188,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-default regResult">
-			<div class="panel-body">
 
-				<div class="result">
-					<span id="resultAdd"></span>
-				</div>
-			</div>
-		</div>
 		<div id="mainHolder">
 			<div class="panel panel-default leftContentHolder">
 				<div class="panel-body">
@@ -241,21 +236,6 @@
 				<div class="panel-body">
 
 					<div class="content">
-						<div id="listBlogSection">
-							<!--
-					        <div class="panel panel-primary">
-							    <div class="panel-heading">
-							      <h2 class="panel-title" id="lBlogHeading"></h2>
-							    </div>
-							    <div class="panel-body" id="listBlogContent">
-							       <p><i>Posted on <span id="lBlogDate"></span></i></p>
-								   <div>
-									   <span id="lBlogContent"></span>
-								   </div>
-							    </div>
-							</div>	
-							-->
-						</div>
 						<div id="createBlogSection">
 							<div id="headingContainer">
 								<div class="input-group">
@@ -263,44 +243,9 @@
 										aria-describedby="basic-addon1" id="blogHeading" size="500">
 								</div>
 							</div>
-							<div id="toolContainer">
-								<button type="button" class="btn btn-default"
-									aria-label="Left Align">
-									<span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default"
-									aria-label="Align Center">
-									<span class="glyphicon glyphicon-align-center"
-										aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default"
-									aria-label="Align Right">
-									<span class="glyphicon glyphicon-align-right"
-										aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default"
-									aria-label="Align Right">
-									<span class="glyphicon glyphicon-align-right"
-										aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default"
-									aria-label="Align Justify">
-									<span class="glyphicon glyphicon-align-justify"
-										aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default"
-									aria-label="Italic">
-									<span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default" aria-label="Bold">
-									<span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default"
-									aria-label="Text Size">
-									<span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
-								</button>
-
+<!--							<div id="toolContainer">
 							</div>
+-->
 							<div id="contentTextArea">
 								<textarea cols="10" rows="20" id="blogContent"
 									placeholder="Write your blog here..."></textarea>
@@ -338,36 +283,10 @@
 								</div>
 								<div class="panel-body">
 									<div id="commentContent">
-										<!-- 							    <p id="commentStatus">No Comments posted</p>
-									<div class="panel panel-default">
-									  <div class="panel-heading">
-									  	<p id="pUserName"></p>
-									  </div>
-									  <div class="panel-body">
-									    <i><p id="pDate"></p></i>
-									    <p id="pComment"></p>
-									  </div>
-									</div> -->
 									</div>
 								</div>
 							</div>
 						</div>
-
-						<div id="viewSearchedBlogSection">
-							<!-- 							<div class="panel panel-primary">
-								<div class="panel-heading blogHeadingLink">
-							    	<h2 class="panel-title" id="sBlogHeading"></h2>
-							  	</div>
-								  <div class="panel-body" id="searchBlogContent">
-								    <p><i>Posted on <span id="sBlogDate"></span></i></p>
-									<div>
-										<span id="sBlogContent"></span>
-									</div>
-								  </div>
-							</div>							
- -->
-						</div>
-
 						<div id="userProfile">
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -448,6 +367,38 @@
 								</div>
 							</div>
 
+						</div>
+						<div id="listBlogHeadings">
+						</div>
+						<div id="viewClickedBlogSection">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h2 class="panel-title" id="zBlogHeading"></h2>
+								</div>
+								<div class="panel-body" id="clickedBlogContent">
+									<p>
+										<i>Posted on <span id="zBlogDate"></span></i>
+									</p>
+									<div>
+										<span id="zBlogContent"></span>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<p>Comments</p>
+									<textarea cols="70" rows="3" id="zcomment"
+										placeholder="Write Comment..."></textarea>
+									<p>
+										<a href="#" class="btn btn-primary" role="button"
+											id="zpostComment">Post</a>
+									</p>
+								</div>
+								<div class="panel-body">
+									<div id="zcommentContent">
+									</div>
+								</div>
+							</div>
 						</div>
 
 					</div>

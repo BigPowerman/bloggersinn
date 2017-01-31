@@ -29,7 +29,13 @@ public class UserProvider implements Account{
 	
 	public String createAccount(Users users) throws UserIdExistException, AccountException {
 		dao= new JPADao();
-		String userId = dao.createUser(users);
+		String userId = null;
+		try{
+			userId  = dao.createUser(users);
+		}catch(Exception ex){
+			throw new AccountException("Username already exist, please try with a different username");
+		}
+		
 		return userId;
 	}
 
