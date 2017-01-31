@@ -418,6 +418,8 @@ $(document)
 								$('#logout').hide();
 								$('#user').hide();
 								$('#userProfile').hide();
+								localStorage.setItem('user',null);
+								localStorage.setItem('sessionId',null);
 							},
 							error : function(response){
 								alert("Error while logout ")
