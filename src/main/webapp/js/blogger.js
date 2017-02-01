@@ -131,7 +131,7 @@ $(document)
 						});
 					});
 					
-
+										
 					var clearLoginFields = function(){
 						$('#userName').val("");
 						$('#password').val("");
@@ -609,3 +609,25 @@ $(document)
 					});
 					
 				});
+
+
+function updateChat()
+{
+	var userName = globalUserName;
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/BloggersInn/blog/chat/get/" + userName,
+	    contentType : 'application/json',
+
+        success: function (response) {
+        	var mychat = response.myChat;
+			console.log(mychat);
+			$('#msgList').empty();
+			for(var i=0;i<mychat.length;i++){
+				$('#msgList').append("<font color=\"blue\">" +mychat[i].senderUserName + "@: </font>" + mychat[i].message + "<br>");													
+			}
+        }
+    });
+}
+setInterval("updateChat()",3000);
+
