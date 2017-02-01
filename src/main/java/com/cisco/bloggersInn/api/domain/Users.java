@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
 public class Users {
 
 	public Users(String name, String userName, String emailId, String password, String securityQuestion,
-			String securityAnswer, String interests, Set<BlogInfo> myBlogs, Set<Chats> myChat) {
+			String securityAnswer, String interests, Set<BlogInfo> myBlogs, Set<Chats> myChat, String sessionId) {
 		super();
 		this.name = name;
 		this.userName =  userName;
@@ -24,6 +24,7 @@ public class Users {
 		this.interests = interests;
 		this.myBlogs = myBlogs;
 		this.myChat = myChat;
+		this.sessionId = sessionId;
 	}
 	public Users() {
 
@@ -45,6 +46,7 @@ public class Users {
 	protected Set<Chats> myChat;
 	@OneToMany
 	protected Set<BlogInfo> myBlogs;
+	protected String sessionId;
 
 	
 	public String getName() {
@@ -106,6 +108,12 @@ public class Users {
 	}
 	public void setMyChat(Set<Chats> myChat) {
 		this.myChat = myChat;
+	}
+	public String getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
 	}
 	
 }

@@ -32,13 +32,13 @@ public class JPADao implements DAO {
 		return users.getUserName();
 	}
 
-	public boolean updateUser(Users user) {
+	public Users updateUser(Users user) {
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
 		em.merge(user);
 		em.getTransaction().commit();
 		em.close();
-		return true;
+		return user;
 	}
 
 	public Users findUser(long userId) {
@@ -58,8 +58,8 @@ public class JPADao implements DAO {
 	
 	public Users findUserByUserName(String userName){
 		EntityManager em = factory.createEntityManager();
-		System.out.println(userName);
-		Users user = (Users)em.createQuery("select usr from Users usr where usr.userName Like :user").setParameter("user", userName).getSingleResult();
+		System.out.println("inside find username " + userName);
+		Users user = (Users)em.createQuery("select usr from Users usr where usr.userName Like ?1").setParameter(1, userName).getSingleResult();
 		if(user != null){
 			System.out.println("User is found using the name :"+ user.getName());
 			Hibernate.initialize(user.getMyBlogs());
@@ -215,4 +215,5 @@ public class JPADao implements DAO {
 		return chat.getId();
 	}
 	
+
 }

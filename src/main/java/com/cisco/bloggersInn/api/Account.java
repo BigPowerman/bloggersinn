@@ -15,7 +15,7 @@ public interface Account {
 	public String createAccount(Users user) 
 			throws UserIdExistException, AccountException;
 	
-	public boolean updateAccount(Users user) throws AccountException;
+	public Users updateAccount(Users user) throws AccountException;
 	
 	public Users getAccount(String userName) throws UserNotExistException, AccountException;
 	

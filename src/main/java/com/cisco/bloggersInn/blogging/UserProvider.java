@@ -1,6 +1,10 @@
 package com.cisco.bloggersInn.blogging;
 
+import java.security.MessageDigest;
+import java.util.Date;
 import java.util.Set;
+
+import javax.xml.bind.DatatypeConverter;
 
 import com.cisco.bloggersInn.api.Account;
 import com.cisco.bloggersInn.api.domain.Chats;
@@ -15,7 +19,7 @@ import com.cisco.bloggersInn.data.DAO;
 import com.cisco.bloggersInn.data.impl.JPADao;
 
 public class UserProvider implements Account{
-	private DAO dao= null;
+	private static DAO dao= null;
 
 	public UserProvider() {
 		// TODO Auto-generated constructor stub
@@ -52,6 +56,16 @@ public class UserProvider implements Account{
 			usr = dao.findUserByUserName(user.getUserName());
 			if(usr != null ){
 				if(usr.getPassword().equals(user.getPassword())){
+					// encryption code
+					Date sessionCreatedTime = new Date();
+					System.out.println(sessionCreatedTime);
+					String sessionString = usr.getId() +"|"+ usr.getUserName() +"|"+ sessionCreatedTime;
+					System.out.println(sessionString);
+					String hash = DatatypeConverter.printHexBinary( 
+					           MessageDigest.getInstance("MD5").digest(sessionString.getBytes("UTF-8")));
+					System.out.println(hash);
+					usr.setSessionId(hash);
+					usr = dao.updateUser(usr);
 					return usr;
 				}else{
 					throw new PasswordIncorrectException("Username or password incorrect, please try again");
@@ -76,11 +90,24 @@ public class UserProvider implements Account{
 		return null;
 	}
 
-	public boolean updateAccount(Users user) throws AccountException {
+	public Users updateAccount(Users user) throws AccountException {
 		dao = new JPADao();
-		boolean status;
-		status = dao.updateUser(user);
-		return status;
+		Users usr = dao.updateUser(user);
+		return usr;
 	}
 
+	public static boolean isValidSession(String sessionId, String userName){
+		dao = new JPADao();
+		Users usr = dao.findUserByUserName(userName);
+		System.out.println("session id "+usr.getSessionId());
+		return ((usr.getSessionId()).equals(sessionId));
+	}
+
+	public boolean logout(String userName) {
+		dao = new JPADao();
+		Users usr = dao.findUserByUserName(userName);
+		usr.setSessionId(null);
+		dao.updateUser(usr);
+		return true;
+	}
 }

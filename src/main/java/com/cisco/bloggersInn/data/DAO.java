@@ -14,7 +14,7 @@ public interface DAO {
 	 * User Related API
 	 */
 	public String createUser(Users users);
-	public boolean updateUser(Users user);
+	public Users updateUser(Users user);
 	public Users findUser(long userId);
 	public Users findUserByUserName(String userName);
 	public void deleteUser(String userId);
